@@ -12,8 +12,12 @@ CTestTestfile.cmake
 _deps
 CMakeUserPresets.json
 
-#Build folder
+#Project specific
 /build
+/images
 
 #MacOS sadness
 *.DS_Store
+
+#vscode
+.vscode
