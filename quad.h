@@ -5,7 +5,8 @@
 
 class quad : public hittable {
     public:
-        quad(const point3& Q, const vec3& u, const vec3& v, shared_ptr<material> mat)
+        // U and V swapped in method signature as they're the wrong way round in calculations for some reason
+        quad(const point3& Q, const vec3& v, const vec3& u, shared_ptr<material> mat)
         : Q(Q), u(u), v(v), mat(mat)
         {
             auto n = cross(u, v);
