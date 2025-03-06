@@ -332,7 +332,7 @@ void final_scene(int image_width, int samples_per_pixel, int max_depth) {
 
     world.add(make_shared<bvh_node>(boxes1));
 
-    auto light = make_shared<bvh_node>(boxes1);
+    auto light = make_shared<diffuse_light>(color(7, 7, 7));
     world.add(make_shared<quad>(point3(123,554,147), vec3(300,0,0), vec3(0,0,265), light));
 
     auto center1 = point3(400, 400, 200);
@@ -360,7 +360,7 @@ void final_scene(int image_width, int samples_per_pixel, int max_depth) {
     auto white = make_shared<lambertian>(color(.73, .73, .73));
     int ns = 1000;
     for (int j = 0; j < ns; j++) {
-        boxes2.add(make_shared<sphere>(point3::random(0, 165), 10, white));
+        boxes2.add(make_shared<sphere>(point3::random(0,165), 10, white));
     }
 
     world.add(make_shared<translate>(
@@ -371,23 +371,26 @@ void final_scene(int image_width, int samples_per_pixel, int max_depth) {
     );
 
     camera cam;
-    cam.aspect_ratio = image_width;
-    cam.samples_per_pixel = samples_per_pixel;
-    cam.max_depth = max_depth;
-    cam.background = color(0,0,0);
 
-    cam.vfov = 40;
+    cam.aspect_ratio      = 1.0;
+    cam.image_width       = image_width;
+    cam.samples_per_pixel = samples_per_pixel;
+    cam.max_depth         = max_depth;
+    cam.background        = color(0,0,0);
+
+    cam.vfov     = 40;
     cam.lookfrom = point3(478, 278, -600);
-    cam.lookat = point3(278, 278, 0);
-    cam.vup = vec3(0,1,0);
+    cam.lookat   = point3(278, 278, 0);
+    cam.vup      = vec3(0,1,0);
+
     cam.defocus_angle = 0;
-    
+
     cam.render(world);
 }
 
 
 int main() {
-    switch (false) {
+    switch (10) {
         case 1: bouncing_spheres(); break;
         case 2: checkered_spheres(); break;
         case 3: earth(); break;
