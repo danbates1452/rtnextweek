@@ -340,6 +340,11 @@ void final_scene(int image_width, int samples_per_pixel, int max_depth) {
     auto sphere_material = make_shared<lambertian>(color(0.7, 0.3, 0.1));
     world.add(make_shared<sphere>(center1, center2, 50, sphere_material));
 
+    shared_ptr<hittable> box2 = box(point3(300,300,300), point3(500,500,500), make_shared<lambertian>(color(.73, .73, .73)));
+    box2 = make_shared<rotate_y>(box2, -18);
+
+    world.add(make_shared<constant_medium>(box2, 0.01, color(1,1,1)));
+
     world.add(make_shared<sphere>(point3(260, 150, 45), 50, make_shared<dielectric>(1.5)));
     world.add(make_shared<sphere>(
         point3(0, 150, 145), 50, make_shared<metal>(color(0.8, 0.8, 0.9), 1.0)
